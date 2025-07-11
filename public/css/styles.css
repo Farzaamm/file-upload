@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    background-color: #0ce478;
+    color: #000000;
+    padding: 10px;
+    width: 100vw;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 100%;
+}
+
+nav a {
+    text-decoration: none;
+    color: #000000;
+    margin: 0 15px;
+}
+
+nav a:hover {
+    color: rgb(255, 251, 0);
+    text-shadow: #000000 1px 1px 1px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+}
+
+section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 0 10px;
+}
+
+input[type="file"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #0ce478;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #0ce478;
+    box-shadow: 0px 0px 2px .5px #0ce478;
+
+}
+
+.terms {
+    width: 100%;
+    padding: 0 10px 10px 10px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+button {
+    background-color: #0ce478;
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    color: rgb(255, 251, 0);
+    text-shadow: #000000 1px 1px 1px;;
+    background-color: #0ce478;
+}
+
+footer {
+    background-color: #0ce478;
+    color: #000000;
+    padding: 10px;
+    width: 100vw;
+    text-align: center;
+}
