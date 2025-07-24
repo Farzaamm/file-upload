@@ -1,4 +1,5 @@
 const userService = require('../lib/user');
+const { hashPassword, comparePassword } = require('../utils/hash');
 
 module.exports = authController = {
     renderSignupForm: (req, res) => {
@@ -24,7 +25,8 @@ module.exports = authController = {
             return res.render('auth/signup', { title: 'Sign up', errors: ['Username already exists'] });
         }   
         try {
-            const user = await userService.createUser({ username, password });
+            const hashedPassword = await hashPassword(password);
+            const user = await userService.createUser({ username, password: hashedPassword });
             res.redirect('/login');
         } catch (error) {
             console.error(error);
@@ -32,8 +34,21 @@ module.exports = authController = {
         }
 
     },
-    handleLogin: (req, res) => {
-        res.send('Sign in');
+    handleLogin: async (req, res) => {
+        const { username, password } = req.body;
+        const errors = [];
+        if (!username || !password) {
+            errors.push('All fields are required');
+        }
+        if (errors.length > 0) {
+            return res.render('auth/login', { title: 'Sign in', errors });
+        }
+        const user = await userService.findUserByUsername(username);
+        const isMatch = await comparePassword(password, user.password);
+        if (!user || !isMatch) {
+            return res.render('auth/login', { title: 'Sign in', errors: ['Invalid username or password'] });
+        }
+        res.redirect('/');
     },
     handleLogout: (req, res) => {
         res.send('Logout');
