@@ -3,6 +3,7 @@ const passport = require('passport');
 const session = require('express-session');
 const indexRouter = require('./routes/indexRoutes');
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 
 const app = express();
@@ -26,7 +27,8 @@ app.use(passport.session());
 
 // Routers
 app.use('/', indexRouter);
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
+app.use('/users', userRoutes);
 app.use('/api', uploadRoutes);
 
 
