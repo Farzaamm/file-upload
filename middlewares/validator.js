@@ -1,4 +1,4 @@
-const {body, validationResult} = require('express-validator');
+const {body, check, validationResult} = require('express-validator');
 
 module.exports = {
     validateSignup: [
@@ -16,8 +16,9 @@ module.exports = {
         body('username').notEmpty().withMessage('Username is required'),
         body('password').notEmpty().withMessage('Password is required') 
     ],
+    
     validateUpload: [
-        body('file').custom((value, {req}) => {
+        check('file').custom((value, {req}) => {
             if (!req.file) {
                 throw new Error('File is required');
             }

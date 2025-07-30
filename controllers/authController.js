@@ -1,7 +1,7 @@
-const e = require('express');
 const userService = require('../lib/user');
 const { hashPassword, comparePassword } = require('../utils/hash');
 const passport = require('passport');
+const prisma = require('../lib/prisma');
 require('../config/passport');
 
 module.exports = authController = {
@@ -30,7 +30,30 @@ module.exports = authController = {
         try {
             const hashedPassword = await hashPassword(password);
             const user = await userService.createUser({ username, password: hashedPassword });
-            res.redirect('/login');
+
+            try {
+                const folder = await prisma.folder.create({
+                    data: {
+                        name: 'My Files',
+                        user: { connect: { id: user.id } }
+                    }
+                });
+                // console.log(`______ authController.js -> (Folder created) Folder ID: ${folder.id}`);
+            } catch (err) {
+                try {
+                    const folder = await prisma.folder.findFirst({ where: { userId: user.id } });
+                    if (folder) {
+                        await prisma.file.deleteMany({ where: { folderId: folder.id } });
+                        await prisma.folder.delete({ where: { id: folder.id } });
+                    }
+                    await prisma.user.delete({ where: { id: user.id } });
+                } catch (cleanupErr) {
+                    console.error('Error during cleanup:', cleanupErr);
+                }
+                throw err;
+            }
+
+            res.redirect('/auth/login');
         } catch (error) {
             console.error(error);
             res.render('auth/signup', { title: 'Sign up', errors: ['An error occurred while creating the user'] });
@@ -38,19 +61,40 @@ module.exports = authController = {
 
     },
     handleLogin: (req, res, next) => {
-        passport.authenticate('local', {
-            successRedirect: '/:user',
-            failureRedirect: '/login',
-            failureFlash: true
+        passport.authenticate('local', async (err, user, info) => {
+            if (err) return next(err);
+            if (!user) return res.redirect('/auth/signup');
+
+            req.logIn(user, async (err) => {
+                if (err) return next(err);
+                try {
+                    let folders = await prisma.folder.findMany({
+                        where: { userId: user.id },
+                        include: { files: true }
+                    });
+                    if (folders.length === 0) {
+                        const newFolder = await prisma.folder.create({
+                            data: {
+                                name: 'My Files',
+                                user: { connect: { id: user.id } }
+                            }
+                        });
+                        folders.push(newFolder);
+                    }
+                    res.render('user', { title: 'User Dashboard', user, folders, selectedFolder: folders[0] });
+                } catch (error) {
+                    console.error(error);
+                    res.redirect('/auth/login');
+                }
+            });
         })(req, res, next);
-        
     },
     handleLogout: (req, res) => {
         req.logout(err => {
             if (err) {
                 console.error(err);
             }
-            res.redirect('/login');
+            res.redirect('/auth/login');
         });
     }
 }

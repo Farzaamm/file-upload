@@ -7,11 +7,18 @@
     </header>
 
     <main>
-        <h1>Welcome to File Upload Service!</h1><br><br>
-        <div>
-            <p>Please <a href="/login">log in</a> to upload files.</p><br>
-            <p>Or <a href="/signup">sign up</a> if you don't have an account.</p><br>
-            <p>Once logged in, you can upload files to the server.</p>
+        <div class="index-content">
+            <h1>Welcome to File Upload Service!</h1><br><br>
+            <div>
+                <% if (user) { %>
+                    <h2>Hi, <%= user.username %>!</h2>
+                    <p>You can upload files <a href="/user">here</a>.</p>
+                <% } else { %>
+                    <p>Please <a href="/auth/login">log in</a> to upload files.</p><br>
+                    <p>Or <a href="/auth/signup">sign up</a> if you don't have an account.</p><br>
+                    <p>Once logged in, you can upload files to the server.</p>
+                <% } %>
+            </div>
         </div>
     </main>
 

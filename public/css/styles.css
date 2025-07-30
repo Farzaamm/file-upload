@@ -10,15 +10,17 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
     min-height: 100vh;
 }
 
 main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 0;
+    padding: 10px;
+    height: 85vh;
 }
 
 nav {
@@ -77,10 +79,22 @@ section {
     padding: 0 10px;
 }
 
+.choose-folder {
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-start;
+    width: 100%;
+    margin: 10px 0;
+}
+
 input[type="file"] {
     width: 100%;
+    padding: 10px;
+    font-size: 1.2rem;
     border: 1px solid #ccc;
     border-radius: 5px;
+    position: relative;
+    cursor: pointer;
 }
 
 input[type="text"],
@@ -102,6 +116,14 @@ input:focus {
     border: 2px solid #0ce478;
     box-shadow: 0px 0px 2px .5px #0ce478;
 
+}
+
+select {
+    width: 200px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
 }
 
 .terms {
@@ -129,6 +151,111 @@ button:hover {
     text-shadow: #000000 1px 1px 1px;;
     background-color: #0ce478;
 }
+
+/* index */
+.index-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    margin-top: 20px;
+}
+
+/* user-profile */
+#logoutForm {
+    display: block;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    width: 100px;
+}
+
+#logoutForm button {
+    width: 100%;
+    background-color: #0ce478;
+    color: #c40404;
+    text-shadow: #b4b1b1 1px 1px 1px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#logoutForm button:hover {
+    color: rgb(255, 251, 0);
+    text-shadow: #000000 1px 1px 1px;;
+    background-color: #0ce478;
+}
+
+#createFolderForm {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin: 0;
+    box-shadow: none;
+    width: 200px;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+#createFolderForm input[type="text"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0;
+}
+
+#createFolderForm button {
+    margin-top: 5px;
+}
+
+.content {
+    max-width: 100vw;
+    margin: 20px auto;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0;
+    height: 85vh;
+}
+
+.sidebar {
+    width: 250px;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.sidebar li {
+    list-style: none;
+    margin: 10px 0;
+}
+
+.sidebar a {
+    display: block;
+    margin: 10px 0;
+    color: #000000;
+    text-decoration: none;
+}
+
+/* sign-up */
+.sign-in-up-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 
 footer {
     background-color: #0ce478;

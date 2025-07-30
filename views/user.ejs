@@ -7,42 +7,61 @@
     </header>
 
     <main>
-        <h1>File Upload</h1>
-        <div class="form">
-            <form id="uploadForm" action="/api/upload" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" id="fileInput" required>
-                <button type="submit">Upload</button>
+        <% if (user) { %>
+            <h1>Hi, <%= user.username %>!</h1>
+            <form id="logoutForm" action="/auth/logout" method="post">
+                <button type="submit">Log out</button>
             </form>
+        <% } %>
+        <div class="content">
+            <div class="sidebar">
+                <div class="create-folder-container">
+                    <form id="createFolderForm" action="/user/folders" method="post">
+                        <input type="text" name="folderName" placeholder="Folder Name" required>
+                        <button type="submit">Create Folder</button>
+                    </form>
+                </div>
+                <ul>
+                    <% if (folders && folders.length > 0) { %>
+                        <% folders.forEach(folder => { %>
+                            <li><strong><a href="/user/<%= user.username %>/<%= folder.name %>"><%= folder.name %></a></strong></li>
+                            <% if (folder.files && folder.files.length > 0) { %>
+                                <ul>
+                                    <% folder.files.forEach(file => { %>
+                                        <li>
+                                            <a href="/uploads/<%= file.name %>" target="_blank"><%= file.name %> (<%= file.size %> bytes)</a>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+                            <% } else { %>
+                                <ul>
+                                    <li><em>No files found in this folder</em></li>
+                                </ul>
+                            <% } %>
+                        <% }) %>
+                    <% } else { %>
+                        <li>No folders found</li>
+                    <% } %>
+                </ul>
+            </div>
+            <div class="form">
+                <form id="uploadForm" action="/api/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="fileInput" required>
+                    <div class="choose-folder">
+                        <label for="folderId">Choose Folder:</label>
+                        <select name="folderId" required>
+                            <% folders.forEach(folder => { %>
+                                <option value="<%= folder.id %>"><%= folder.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
         </div>
         <p id="message"></p>
     </main>
 
     <%- include('partials/footer') -%>
 </body>
-
-<script>
-    document.getElementById('uploadForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const form = e.target;
-        const formData = new FormData(form);
-
-        fetch(form.action, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Upload failed');
-            return response.text();
-        })
-        .then(data => {
-            document.getElementById('message').textContent = 'Upload successful!';
-            document.getElementById('fileInput').value = '';
-        })
-        .catch(err => {
-            console.error(err);
-            document.getElementById('message').textContent = 'Upload failed!';
-        });
-    });
-</script>
 </html>

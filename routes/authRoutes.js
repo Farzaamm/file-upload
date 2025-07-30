@@ -12,6 +12,6 @@ router.post('/signup', validateSignup, handleValidationErrors, authController.ha
 router.post('/login', validateLogin, handleValidationErrors, authController.handleLogin);
 
 // Logout
-router.get('/logout', authController.handleLogout);
+router.post('/logout', authController.handleLogout);
 
 module.exports = router;

@@ -8,28 +8,30 @@
 
     <main>
         <h1>Sign up</h1>
-        <form action="/signup" method="post">
-            <section>
-                <label for="username">Username</label>
-                <input id="username" name="username" type="text" autocomplete="username" required>
-            </section>
-            <section>
-                <label for="new-password">Password</label>
-                <input id="new-password" name="password" type="password" autocomplete="new-password" required>
-            </section>
-            <section>
-                <label for="confirm-password">Confirm Password</label>
-                <input id="confirm-password" name="confirmPassword" type="password" autocomplete="confirm-password" required>
-            </section>
-            <div class="terms">
-                <input id="terms" name="terms" type="checkbox" required>
-                <label for="terms">Accept <a href="/terms">terms</a> and conditions</label>
-            </div>
-            <section>
-                <p>Already have an account? <a href="/login">Sign in</a></p>
-            </section>
-            <button type="submit">Sign up</button>
-        </form>
+        <div class="sign-in-up-container">
+            <form action="/auth/signup" method="post">
+                <section>
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text" autocomplete="username" required>
+                </section>
+                <section>
+                    <label for="new-password">Password</label>
+                    <input id="new-password" name="password" type="password" autocomplete="new-password" required>
+                </section>
+                <section>
+                    <label for="confirm-password">Confirm Password</label>
+                    <input id="confirm-password" name="confirmPassword" type="password" autocomplete="confirm-password" required>
+                </section>
+                <div class="terms">
+                    <input id="terms" name="terms" type="checkbox" required>
+                    <label for="terms">Accept <a href="/terms">terms</a> and conditions</label>
+                </div>
+                <section>
+                </section>
+                <button type="submit">Sign up</button>
+            </form>
+            <p>Already have an account? <a href="/auth/login">Sign in</a></p>
+        </div>
     </main>
 
     <%- include('../partials/footer') -%>

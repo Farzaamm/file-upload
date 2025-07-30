@@ -33,9 +33,9 @@ app.use((req, res, next) => {
 
 // Routers
 app.use('/', indexRouter);
-app.use('/', authRoutes);
+app.use('/auth', authRoutes);
 app.use('/api', uploadRoutes);
-app.use('/:user', userRoutes);
+app.use('/user', userRoutes);
 
 
 

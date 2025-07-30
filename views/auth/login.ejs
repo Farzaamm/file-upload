@@ -8,7 +8,8 @@
 
     <main>
         <h1>Sign In</h1>
-			<form action="/login" method="post">
+		<div class="sign-in-up-container">
+			<form action="/auth/login" method="post">
 				<section>
 					<label for="username">Username</label>
 					<input id="username" name="username" type="text" autocomplete="username" required autofocus>
@@ -19,8 +20,9 @@
 				</section>
 				<button type="submit">Sign in</button>
 			</form>
+			<p class="help">Don't have an account? <a href="/auth/signup">Sign up</a></p>
+		</div>
 			
-			<p class="help">Don't have an account? <a href="/signup">Sign up</a></p>
     </main>
 
     <%- include('../partials/footer') -%>
