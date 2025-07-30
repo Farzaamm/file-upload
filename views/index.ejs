@@ -7,13 +7,15 @@
     </header>
 
     <main>
-        <h1>File Upload</h1>
-        <form action="/api/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="file">
-            <button type="submit">Upload</button>
-        </form>
+        <h1>Welcome to File Upload Service!</h1><br><br>
+        <div>
+            <p>Please <a href="/login">log in</a> to upload files.</p><br>
+            <p>Or <a href="/signup">sign up</a> if you don't have an account.</p><br>
+            <p>Once logged in, you can upload files to the server.</p>
+        </div>
     </main>
 
     <%- include('partials/footer') -%>
 </body>
+
 </html>

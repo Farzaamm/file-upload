@@ -14,6 +14,7 @@ app.set('view engine', 'ejs');
 
 // Middlewares
 app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -26,15 +27,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-    res.locals.user = req.user || null;
+    res.locals.user = req.user;
     next();
 });
 
 // Routers
 app.use('/', indexRouter);
 app.use('/', authRoutes);
-app.use('/users', userRoutes);
 app.use('/api', uploadRoutes);
+app.use('/:user', userRoutes);
 
 
 
